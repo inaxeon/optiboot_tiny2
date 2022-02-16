@@ -132,9 +132,20 @@ optiboot_%.elf:	optiboot_x.c FORCE
 #  appropriate specific options
 #---------------------------------------------------------------------------
 
+AVRDUDE = avrdude $(PROGRAMMER)
+PROGRAMMER = -c atmelice_updi
+FUSES      = -U fuse0:w:0x00:m -U fuse1:w:0x00:m -U fuse2:w:0x02:m -U fuse5:w:0xC4:m -U fuse6:w:0x06:m -U fuse7:w:0x00:m -U fuse8:w:0x02:m
+
+
 HELPTEXT += "attiny1624"
 attiny1624:
 	$(MAKE) -f $(MF) optiboot_attiny1624.hex UARTTX=B2 TIMEOUT=8 LED=A5
+
+flash_t1624: attiny1624
+	$(AVRDUDE) -p t1624 -U flash:w:optiboot_attiny1624.hex:i
+
+fuse_t1624:
+	$(AVRDUDE) -p t1624 $(FUSES)
 
 #---------------------------------------------------------------------------
 #
