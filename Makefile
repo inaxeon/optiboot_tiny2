@@ -139,7 +139,7 @@ FUSES      = -U fuse0:w:0x00:m -U fuse1:w:0x00:m -U fuse2:w:0x02:m -U fuse5:w:0x
 
 HELPTEXT += "attiny1624"
 attiny1624:
-	$(MAKE) -f $(MF) optiboot_attiny1624.hex UARTTX=B2 TIMEOUT=8 LED=A5
+	$(MAKE) -f $(MF) optiboot_attiny1624.hex UARTTX=B2 TIMEOUT=8 LED=A1
 
 flash_t1624: attiny1624
 	$(AVRDUDE) -p t1624 -U flash:w:optiboot_attiny1624.hex:i
